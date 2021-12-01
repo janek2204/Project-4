@@ -3,10 +3,13 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import AdvertSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 # Create your views here.
 
 
 class AdvertListView(APIView):
+  permission_classes = (IsAuthenticatedOrReadOnly,)
+
   def get(self,request):
     adverts = Advert.objects.all()
     serialized_adverts = AdvertSerializer(adverts,many=True)
@@ -21,6 +24,7 @@ class AdvertListView(APIView):
       return Response(advert.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 class AdvertDetailView(APIView):
+  permission_classes = (IsAuthenticatedOrReadOnly,)
 
   def get(self,request,pk):
     advert = Advert.objects.get(id=pk)

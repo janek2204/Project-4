@@ -1,13 +1,17 @@
+from rest_framework import permissions
 from .models import Review
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import ReviewSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 # Create your views here.
 
 
 class ReviewListView(APIView):
+  permission_classes = (IsAuthenticatedOrReadOnly,)
+
   def get(self,request):
     reviews = Review.objects.all()
     serialized_reviews = ReviewSerializer(reviews,many=True)
@@ -23,12 +27,13 @@ class ReviewListView(APIView):
   
 
 class ReviewDetailView(APIView):
+  permission_classes = (IsAuthenticatedOrReadOnly,)
 
   def get(self,request,pk):
     review = Review.objects.get(id=pk)
     serialized_review = ReviewSerializer(review)
     return Response(serialized_review.data, status=status.HTTP_200_OK)
-  
+
   def put(self,request,pk):
     review = Review.objects.get(id=pk)
     updated_review = ReviewSerializer(review,data= request.data)
