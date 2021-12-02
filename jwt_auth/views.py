@@ -8,7 +8,8 @@ from datetime import datetime, timedelta
 from django.contrib.auth import get_user_model
 from django.conf import settings
 import jwt
-from .serializers import UserSerializer
+from .serializers import UserSerializer,PopulatedUserSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 User = get_user_model()
 
@@ -22,6 +23,11 @@ class RegisterView(APIView):
 
 
 class LoginView(APIView):
+  permission_classes = (IsAuthenticatedOrReadOnly,)
+  def get(self,request,pk):
+    user = User.objects.get(id=pk)
+    serialized_user = PopulatedUserSerializer(user)
+    return Response(serialized_user.data,status=status.HTTP_200_OK)
 
   def post(self,request):
     email = request.data.get('email')

@@ -4,19 +4,19 @@ from .models import Review
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import ReviewSerializer
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from .serializers import ReviewSerializer,PopulatedReviewSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
 # Create your views here.
 
 
 class ReviewListView(APIView):
-  permission_classes = (IsAuthenticated,)
+  permission_classes = (IsAuthenticatedOrReadOnly,)
 
   def get(self,request):
     reviews = Review.objects.all()
-    serialized_reviews = ReviewSerializer(reviews,many=True)
+    serialized_reviews = PopulatedReviewSerializer(reviews,many=True)
     return Response(serialized_reviews.data, status=status.HTTP_200_OK)
 
   def post(self,request):
@@ -30,7 +30,7 @@ class ReviewListView(APIView):
   
 
 class ReviewDetailView(APIView):
-  permission_classes = (IsAuthenticated,)
+  permission_classes = (IsAuthenticatedOrReadOnly,)
 
   def get(self,request,pk):
     review = Review.objects.get(id=pk)
@@ -38,6 +38,7 @@ class ReviewDetailView(APIView):
     return Response(serialized_review.data, status=status.HTTP_200_OK)
 
   def put(self,request,pk):
+    request.data['owner'] = request.user.id
     review = Review.objects.get(id=pk)
     updated_review = ReviewSerializer(review,data= request.data)
     if review.owner != request.user:

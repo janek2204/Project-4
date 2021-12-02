@@ -2,7 +2,8 @@ from .models import Advert
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import AdvertSerializer
+from .serializers import PopulatedAdvertSerializer
+from .main_serializer import AdvertSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 # Create your views here.
 
@@ -12,10 +13,11 @@ class AdvertListView(APIView):
 
   def get(self,request):
     adverts = Advert.objects.all()
-    serialized_adverts = AdvertSerializer(adverts,many=True)
+    serialized_adverts = PopulatedAdvertSerializer(adverts,many=True)
     return Response(serialized_adverts.data, status=status.HTTP_200_OK)
 
   def post(self,request):
+    request.data['owner'] = request.user.id
     advert = AdvertSerializer(data= request.data)
     if advert.is_valid():
       advert.save()
@@ -28,10 +30,11 @@ class AdvertDetailView(APIView):
 
   def get(self,request,pk):
     advert = Advert.objects.get(id=pk)
-    serialized_advert = AdvertSerializer(advert)
+    serialized_advert = PopulatedAdvertSerializer(advert)
     return Response(serialized_advert.data, status=status.HTTP_200_OK)
   
   def put(self,request,pk):
+    request.data['owner'] = request.user.id
     advert = Advert.objects.get(id=pk)
     updated_advert = AdvertSerializer(advert,data= request.data)
     if updated_advert.is_valid():
