@@ -1,10 +1,24 @@
 import React from 'react'
-import { Header } from 'semantic-ui-react'
+import { Grid, GridColumn, Form, Button } from 'semantic-ui-react'
 
 
 const Login = () => {
   return (
-    <Header as='h1' textAlign='center'>Login page</Header>
+    <Grid centered>
+      <GridColumn style={{ maxWidth: 550, marginTop: 50 }}>
+        <Form>
+          <Form.Field>
+            <label>Email</label>
+            <input placeholder='Email' />
+          </Form.Field>
+          <Form.Field>
+            <label>Password</label>
+            <input placeholder='Password' />
+          </Form.Field>
+          <Button type='submit'>Login</Button>
+        </Form>
+      </GridColumn>
+    </Grid>
   )
 }
 
