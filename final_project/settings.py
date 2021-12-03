@@ -136,9 +136,10 @@ AUTH_USER_MODEL = 'jwt_auth.User'
 REST_FRAMEWORK ={ # 1:45:00 in  Charlotts video
   'DEFAULT_RENDERER_CLASSES': [
     'rest_framework.renderers.JSONRenderer',
-    'rest_framework.renderers.BrowsableAPIRenderer',
+    'rest_framework.renderers.BrowsableAPIRenderer'
   ],
   'DEFAULT_AUTHENTICATION_CLASSES': [
-    'jwt_auth.authentication.JWTAuthentication'
+    'jwt_auth.authentication.JWTAuthentication',
+  
   ],
 }

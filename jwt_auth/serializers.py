@@ -21,16 +21,16 @@ class UserSerializer(serializers.ModelSerializer):
       raise ValidationError({'password_confirmation':'Passwords do not match'})
 
     try:
-      password_validation.validate_password(password = password)
+      password_validation.validate_password(password=password)
     except ValidationError as err:
       raise ValidationError({'password': err.messages})
-
+ 
     data['password'] = make_password(password)
     return data
 
   class Meta:
     model = User
-    fields = ('id','username','password','password_confirmation','profile_image','first_name','last_name')
+    fields = ('id','email','username','password','password_confirmation','profile_image','first_name','last_name')
 
 class PopulatedUserSerializer(UserSerializer):
   class Meta:

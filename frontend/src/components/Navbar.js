@@ -5,6 +5,12 @@ import { Menu, MenuItem, Icon, Button } from 'semantic-ui-react'
 
 const Navbar = () => {
   const history = useHistory()
+
+  const handleLogout = () => {
+    window.localStorage.removeItem('token')// remove token from local storage
+    history.push('adverts/')
+  }
+
   return (
     <Menu>
       <MenuItem>
@@ -13,6 +19,7 @@ const Navbar = () => {
       <MenuItem position='right'>
         <Button position='right' onClick={() => history.push('/login')}>Login</Button>
         <Button position='right' onClick={() => history.push('/register')}>Register</Button>
+        <Button position='right' onClick={handleLogout}>Logout</Button>
       </MenuItem>
     </Menu>
   )

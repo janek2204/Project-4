@@ -1,5 +1,3 @@
-from django.core import exceptions
-import rest_framework
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -9,7 +7,6 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 import jwt
 from .serializers import UserSerializer,PopulatedUserSerializer
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 User = get_user_model()
 
@@ -23,10 +20,10 @@ class RegisterView(APIView):
 
 
 class LoginView(APIView):
-  permission_classes = (IsAuthenticatedOrReadOnly,)
-  def get(self,request,pk):
-    user = User.objects.get(id=pk)
-    serialized_user = PopulatedUserSerializer(user)
+
+  def get(self,request):
+    user = User.objects.all()
+    serialized_user = PopulatedUserSerializer(user,many=True)
     return Response(serialized_user.data,status=status.HTTP_200_OK)
 
   def post(self,request):
@@ -37,9 +34,9 @@ class LoginView(APIView):
       user_to_login = User.objects.get(email=email)
     except User.DoesNotExist:
       raise PermissionDenied(detail='Invalid credentials')
-
     if not user_to_login.check_password(password):
       raise PermissionDenied(detail='Invalid credentials')
+    
 
     dt = datetime.now() + timedelta(days=7)
 
