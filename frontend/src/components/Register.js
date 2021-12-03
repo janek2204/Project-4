@@ -39,10 +39,9 @@ const Register = () => {
       await axios.post('api/auth/register/', formData)
       history.push('/login')
     } catch (err) {
-      setErrors(err.response.data.errors)
+      setErrors(err.response.data)
     }
   }
-
   return (
     <Grid centered>
       <GridColumn style={{ maxWidth: 550, marginTop: 50 }}>
@@ -55,6 +54,7 @@ const Register = () => {
               type='text'
               onChange={handleChange}
               placeholder='First Name' />
+            {errors.first_name && <label sub color='red'>{errors.first_name}</label>}
           </Form.Field>
           <Form.Field>
             <label>Last Name</label>
@@ -64,6 +64,7 @@ const Register = () => {
               type='text'
               onChange={handleChange}
               placeholder='Last Name' />
+            {errors.last_name && <label sub color='red'>{errors.last_name}</label>}
           </Form.Field>
           <Form.Field>
             <label>User name</label>
@@ -73,7 +74,7 @@ const Register = () => {
               name='username'
               type='text'
               onChange={handleChange} />
-            {errors.username && <label sub color='red'>User name has to be unique</label>}
+            {errors.username && <label sub color='red'>{errors.username}</label>}
           </Form.Field>
           <Form.Field>
             <label>Email</label>
@@ -83,15 +84,16 @@ const Register = () => {
               type='text'
               onChange={handleChange}
               placeholder='Email' />
+            {errors.email && <label sub color='red'>{errors.email}</label>}
           </Form.Field>
           <Form.Field>
             <label>Profile Image</label>
             <input
-              required={false}
               name='profile_image'
               type='text'
               onChange={handleChange}
               placeholder='Profile Image' />
+            {errors.profile_image && <label sub color='red'>{errors.profile_image}</label>}
           </Form.Field>
           <Form.Field>
             <label>Password</label>
@@ -101,6 +103,7 @@ const Register = () => {
               type='text'
               onChange={handleChange}
               placeholder='Password' />
+            {errors.password && <label sub color='red'>{errors.password}</label>}
           </Form.Field>
           <Form.Field>
             <label>Password Confirmation</label>
@@ -110,6 +113,7 @@ const Register = () => {
               type='text'
               onChange={handleChange}
               placeholder='Password Confirmation' />
+            {errors.password_confirmation && <label sub color='red'>{errors.password_confirmation}</label>}
           </Form.Field>
           <Button type='submit'>Submit</Button>
         </Form>
