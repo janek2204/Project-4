@@ -10,7 +10,6 @@ const Home = () => {
       <Button onClick={() => history.push('/adverts')}>Go to all adverts!</Button>
     </Segment>
     
-    
   )
 }
 

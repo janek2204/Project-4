@@ -8,22 +8,26 @@ const Navbar = () => {
   const location = useLocation()
 
   useEffect(() => {
-  },[location.pathname])
-  
+  }, [location.pathname])
+
   const handleLogout = () => {
     window.localStorage.removeItem('token')// remove token from local storage
     history.push('/')
   }
 
   return (
-    <Menu>
-      <MenuItem position='left'>
+    <Menu inverted >
+      <MenuItem position='left' >
         <Link to='/'><Icon name='home' size='big' /></Link>
       </MenuItem>
 
-      {userIsAuthenticated() ? <MenuItem
-        onClick={handleLogout}
-      >Logout</MenuItem> : <><MenuItem
+      {userIsAuthenticated() ? <>
+        <MenuItem>
+          <Link to='/basket'><Icon name='shopping basket' size='big' /></Link>
+        </MenuItem>
+        <MenuItem
+          onClick={handleLogout}
+        >Logout</MenuItem></> : <><MenuItem
         onClick={() => history.push('/login')}
       >Login</MenuItem>
       <MenuItem

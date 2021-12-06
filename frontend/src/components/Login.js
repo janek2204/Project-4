@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 import React, { useState } from 'react'
-import { Grid, GridColumn, Form, Button,Header } from 'semantic-ui-react'
+import { Grid, GridColumn, Form, Button, Header } from 'semantic-ui-react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 
@@ -36,10 +36,10 @@ const Login = () => {
   }
   return (
     <Grid centered>
-      <GridColumn style={{ maxWidth: 550, marginTop: 50 }}>
+      <GridColumn style={{ maxWidth: 550, marginTop: 100, borderRadius: '15px' }} color='black'>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
-            <label>Email</label>
+            <label color='white'>Email</label>
             <input
               required={true}
               name='email'
@@ -57,7 +57,7 @@ const Login = () => {
               placeholder='Password' />
             {errors && <Header sub color='red'>{errors}</Header>}
           </Form.Field>
-          <Button type='submit'>Login</Button>
+          <Button type='submit' color='blue' style={{ borderRadius: '15px' }}>Login</Button>
         </Form>
       </GridColumn>
     </Grid>

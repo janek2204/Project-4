@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Header, Image, Segment, Comment, Form, Button, Divider, Modal, Icon } from 'semantic-ui-react'
+import { Header, Image, Segment, Comment, Form, Button, Divider, Modal, Icon, CommentGroup, Grid, GridColumn, IconGroup } from 'semantic-ui-react'
 import { getTokenFromLocalStorage, getPayLoad, userIsAuthenticated } from '../helpers/authentication'
 
 
@@ -48,70 +48,85 @@ const SingleAdvert = () => {
     }
     getData()
   }, [id, newComment])
-  
-  return (
-    <>
-      {advertData ? <>
-        <Header as='h1' textAlign='left'>{advertData.title}</Header>
-        <Header as='h2'>{advertData.description}</Header>
-        <Image src={advertData.images} />
-        <Segment>
-          <Header as='h3'>Owner: {advertData.owner.username}</Header>
-          <Header as='h4'>Price: {advertData.price}</Header>
-          <Header as='h4'>Quantity: {advertData.quantity}</Header>
-        </Segment>
-        <Segment>
-          {advertData.reviews.map(review => {
-            return (
-              <Comment key={review.id}>
-                <Comment.Avatar as='a' src={review.owner.profile_image} />
-                <Comment.Content>
-                  <Comment.Author as='h4'>{review.owner.username}</Comment.Author>
-                  <Comment.Metadata>
-                    <div>1 day ago</div>
-                  </Comment.Metadata>
-                  {userIsAuthenticated() && review.owner.id === ownerId.sub &&
-                    <Modal
-                      closeIcon
-                      open={open}
-                      trigger={<Button color='red' floated='right'>Delete comment</Button>}
-                      onClose={() => setOpen(false)}
-                      onOpen={() => setOpen(true)}
-                    >
-                      <Header icon='archive' content='Deleting comment' />
-                      <Modal.Content>
-                        <p>
-                          Are you sure you want to delete your comment?
-                        </p>
-                      </Modal.Content>
-                      <Modal.Actions>
-                        <Button color='red' onClick={() => setOpen(false)}>
-                          <Icon name='remove' /> No
-                        </Button>
-                        <Button color='green' value={review.id} onClick={deleteComment}>
-                          <Icon name='checkmark' /> Yes
-                        </Button>
-                      </Modal.Actions>
-                    </Modal>}
-                  <Comment.Text>
-                    <Header as='h5'>{review.review_text}</Header>
-                  </Comment.Text>
-                </Comment.Content>
-                <Divider />
-              </Comment>
-            )
-          })}
-        </Segment>
-        <Comment.Group>
-          <Form reply>
-            <Form.TextArea onChange={handleChange} name='review_text' />
-            <Button onClick={handleSubmit} content='Add Comment' labelPosition='left' icon='edit' primary />
-          </Form>
-        </Comment.Group>
-      </>
 
+  return (
+    <Grid columns={2}>
+      {advertData ? <>
+        <GridColumn>
+          
+          <Header as='h1' textAlign='center' style={{ color: 'white' }}><IconGroup><Icon name='hand point right outline' /></IconGroup>{advertData.title}</Header>
+          <Image src={advertData.images} fluid />
+          <Segment>
+            <Grid columns={2}>
+              <GridColumn>
+                <Header as='h3'>Seller:<br/> {advertData.owner.username}</Header>
+                <Header as='h4'>Price:<br/> {advertData.price} £</Header>
+                <Header as='h4'>Quantity: {advertData.quantity}</Header>
+              </GridColumn>
+              <GridColumn>
+                <Header as='h3'>Item description:</Header>
+                <Header as='h4'>{advertData.description}</Header>
+                <Header as='h4'>For more information contact me at <a href={`mailto:${advertData.owner.email}?subject=${advertData.title}`}>{advertData.owner.email}</a></Header>
+              </GridColumn>
+            </Grid>
+          </Segment>
+        </GridColumn>
+        <GridColumn>
+          <CommentGroup>
+            <Segment>
+              {advertData.reviews.map(review => {
+                return (
+                  <Comment key={review.id}>
+                    <Comment.Avatar as='a' src={review.owner.profile_image} />
+                    <Comment.Content>
+                      <Comment.Author as='h4'>{review.owner.username}</Comment.Author>
+                      <Comment.Metadata>
+                        <div>1 day ago</div>
+                      </Comment.Metadata>
+                      {userIsAuthenticated() && review.owner.id === ownerId.sub &&
+                        <Modal
+                          closeIcon
+                          open={open}
+                          trigger={<Button color='red' floated='right'>Delete comment</Button>}
+                          onClose={() => setOpen(false)}
+                          onOpen={() => setOpen(true)}
+                        >
+                          <Header icon='archive' content='Deleting comment' />
+                          <Modal.Content>
+                            <p>
+                              Are you sure you want to delete your comment?
+                            </p>
+                          </Modal.Content>
+                          <Modal.Actions>
+                            <Button color='red' onClick={() => setOpen(false)}>
+                              <Icon name='remove' /> No
+                            </Button>
+                            <Button color='green' value={review.id} onClick={deleteComment}>
+                              <Icon name='checkmark' /> Yes
+                            </Button>
+                          </Modal.Actions>
+                        </Modal>}
+                      <Comment.Text>
+                        <Header as='h5'>{review.review_text}</Header>
+                      </Comment.Text>
+                    </Comment.Content>
+                    <Divider />
+                  </Comment>
+                )
+              })}
+            </Segment>
+          </CommentGroup>
+          <Comment.Group>
+            <Form reply>
+              <Form.TextArea onChange={handleChange} name='review_text' />
+              <Button onClick={handleSubmit} content='Add Comment' labelPosition='left' icon='edit' primary />
+            </Form>
+          </Comment.Group>
+        </GridColumn>
+      </>
         : <Header as='h1' textAlign='center'>Something went wrong ☹️</Header>
-      }</>
+      }
+    </Grid>
   )
 }
 

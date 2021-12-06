@@ -44,7 +44,7 @@ const Register = () => {
   }
   return (
     <Grid centered>
-      <GridColumn style={{ maxWidth: 550, marginTop: 50 }}>
+      <GridColumn style={{ maxWidth: 550, marginTop: 50, borderRadius: '15px' }} color='black'>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
             <label>First Name</label>
@@ -115,7 +115,7 @@ const Register = () => {
               placeholder='Password Confirmation' />
             {errors.password_confirmation && <label sub color='red'>{errors.password_confirmation}</label>}
           </Form.Field>
-          <Button type='submit'>Submit</Button>
+          <Button type='submit' color='blue' style={{ borderRadius: '15px' }}>Submit</Button>
         </Form>
       </GridColumn>
     </Grid>
