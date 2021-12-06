@@ -20,10 +20,15 @@ const Login = () => {
     setFormData(newFormData)
   }
 
+  const setTokenToLocalStorage = (token) => {
+    window.localStorage.setItem('token', token)
+  }
+
   const handleSubmit = async e => {
     e.preventDefault()
     try {
-      await axios.post('api/auth/login/', formData)
+      const { data } = await axios.post('api/auth/login/', formData)
+      setTokenToLocalStorage(data.token)
       history.push('/profile')
     } catch (err) {
       setErrors(err.response.data.detail)

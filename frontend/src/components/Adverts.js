@@ -9,7 +9,7 @@ const Adverts = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios.get('api/adverts')
+      const { data } = await axios.get('api/adverts/')
       setAdverts(data)
     }
     getData()
