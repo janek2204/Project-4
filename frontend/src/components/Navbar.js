@@ -25,6 +25,9 @@ const Navbar = () => {
         <MenuItem>
           <Link to='/basket'><Icon name='shopping basket' size='big' /></Link>
         </MenuItem>
+        <MenuItem>
+          <Link to='/profile'><Icon name='user' size='big' /></Link>
+        </MenuItem>
         <MenuItem
           onClick={handleLogout}
         >Logout</MenuItem></> : <><MenuItem

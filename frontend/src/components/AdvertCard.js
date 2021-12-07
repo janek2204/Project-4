@@ -15,7 +15,6 @@ const AdvertCard = ({ title, price, images, id }) => {
     getData()
   }, [id])
 
-  console.log(advertData)
   return (
     <Card fluid onClick={() => history.push(`/adverts/${id}`)}>
       < Header as='h1' textAlign = 'left' > { title }</Header >

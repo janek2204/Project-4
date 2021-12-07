@@ -1,11 +1,11 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Header, Image, Segment, Comment, Form, Button, Divider, Modal, Icon, CommentGroup, Grid, GridColumn, IconGroup, Container, ButtonGroup } from 'semantic-ui-react'
 import { getTokenFromLocalStorage, getPayLoad, userIsAuthenticated } from '../helpers/authentication'
 
 
-const SingleAdvert = () => {
+const SingleAdvert = ({ setBasketItems, basketItems }) => {
 
   const ownerId = getPayLoad()
   const [open, setOpen] = useState(false)
@@ -17,6 +17,11 @@ const SingleAdvert = () => {
     rating: 0,
     adverts: id,
   })
+
+  const onAdd = () => {
+    const newBasket = [ ...basketItems, advertData ]
+    setBasketItems(newBasket)
+  }
 
   const handleChange = e => {
     const newComment = { ...review, [e.target.name]: e.target.value }
@@ -31,7 +36,6 @@ const SingleAdvert = () => {
     document.querySelector('textarea').value = ''
   }
   const deleteComment = async e => {
-    console.log(e.target.value)
     await axios.delete(`/api/reviews/${e.target.value}/`,
       {
         headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
@@ -54,7 +58,6 @@ const SingleAdvert = () => {
       <Grid columns={2}>
         {advertData ? <>
           <GridColumn>
-
             <Header as='h1' textAlign='center' style={{ color: 'white' }}><IconGroup><Icon name='hand point right outline' /></IconGroup>{advertData.title}</Header>
             <Image src={advertData.images} fluid />
             <Segment>
@@ -122,9 +125,8 @@ const SingleAdvert = () => {
                 <Form.TextArea onChange={handleChange} name='review_text' />
                 <ButtonGroup size='big' compact>
                   <Button onClick={handleSubmit} content='Add review' labelPosition='right' icon='edit' primary />
-                  <Button.Or />
-                  {advertData.owner.id === ownerId.sub ? <><Button icon='edit' labelPosition='right' negative content='Edit' /><Button.Or /></> : ''}
-                  <Button icon='plus' labelPosition='right' positive content='Add to basket' />
+                  {advertData.owner.id === ownerId.sub ? <Link to='/edit'><Button icon='edit' labelPosition='right' color='orange' content='Edit' /></Link> : ''}
+                  {advertData.owner.id === ownerId.sub ? '' : <Button icon='plus' onClick={onAdd} labelPosition='right' positive content='Add to basket' />} 
                 </ButtonGroup>
               </Form>
             </Comment.Group>

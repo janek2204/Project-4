@@ -4,10 +4,10 @@ import { Form, Grid, GridColumn, Button } from 'semantic-ui-react'
 import axios from 'axios'
 import { getTokenFromLocalStorage } from '../helpers/authentication'
 
-const AddEditDelete = () => {
+const AddEditDelete = ({ editAdvert }) => {
 
   const history = useHistory()
-
+  console.log('advert to edit',editAdvert[0])
   const [addAdvert, setAdvertData] = useState({
     title: '',
     description: '',
@@ -46,9 +46,92 @@ const AddEditDelete = () => {
     }
   }
 
+  const handleEdit = async e => {
+    e.preventDefault()
+    try {
+      await axios.put(`api/adverts/${editAdvert[0].id}/`, addAdvert,{
+        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
+      })
+      history.push('/profile')
+    } catch (err) {
+      setErrors(err.response.data)
+    }
+  }
+  console.log(addAdvert)
   return (
-    <Grid centered>
-      <GridColumn style={{ maxWidth: 550, marginTop: 50 }}>
+    <>{ editAdvert  ?  <Grid centered>
+      <GridColumn style={{ maxWidth: 550, marginTop: 100, borderRadius: '15px' }} color='black'>
+        <Form onSubmit={handleEdit}>
+          <Form.Field>
+            <label>Title</label>
+            <input
+              required={true}
+              defaultValue={editAdvert[0].title}
+              name='title'
+              type='text'
+              onChange={handleChange}
+              placeholder='Yor advert title'/>
+            {errors.title && <label sub color='red'>{errors.title}</label>}
+          </Form.Field>
+          <Form.Field>
+            <label>Description</label>
+            <input
+              required={true}
+              defaultValue={editAdvert[0].description}
+              name='description'
+              type='text'
+              onChange={handleChange}
+              placeholder='Your item description' />
+            {errors.description && <label sub color='red'>{errors.description}</label>}
+          </Form.Field>
+          <Form.Field>
+            <label>Quantity</label>
+            <input
+              placeholder='How many do you have to sell?'
+              defaultValue={editAdvert[0].quantity}
+              required={true}
+              name='quantity'
+              type='text'
+              onChange={handleChange} />
+            {errors.quantity && <label sub color='red'>{errors.quantity}</label>}
+          </Form.Field>
+          <Form.Field>
+            <label>Image</label>
+            <input
+              name='images'
+              type='text'
+              defaultValue={editAdvert[0].images}
+              onChange={handleChange}
+              placeholder='Images' />
+            {errors.images && <label sub color='red'>{errors.images}</label>}
+          </Form.Field>
+          <Form.Field>
+            <label>Price</label>
+            <input
+              required={true}
+              defaultValue={editAdvert[0].price}
+              name='price'
+              type='text'
+              onChange={handleChange}
+              placeholder='Price' />
+            {errors.price && <label sub color='red'>{errors.price}</label>}
+          </Form.Field>
+          <Form.Field>
+            <label>Category</label>
+            <input
+              required={true}
+              defaultValue={editAdvert[0].category}
+              name='category'
+              type='text'
+              onChange={handleChange}
+              placeholder='Category' />
+            {errors.category && <label sub color='red'>{errors.category}</label>}
+          </Form.Field>
+          <Button type='submit' primary>Submit</Button>
+        </Form>
+      </GridColumn>
+    </Grid> :  <Grid centered>
+      <GridColumn style={{ maxWidth: 550, marginTop: 100, borderRadius: '15px' }} color='black'>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
             <label>Title</label>
@@ -109,10 +192,10 @@ const AddEditDelete = () => {
               placeholder='Category' />
             {errors.category && <label sub color='red'>{errors.category}</label>}
           </Form.Field>
-          <Button type='submit'>Submit</Button>
+          <Button type='submit' primary>Submit</Button>
         </Form>
       </GridColumn>
-    </Grid>
+    </Grid>}</>
   )
 }
 
