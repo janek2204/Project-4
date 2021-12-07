@@ -7,7 +7,7 @@ import { getTokenFromLocalStorage } from '../helpers/authentication'
 const AddEditDelete = ({ editAdvert }) => {
 
   const history = useHistory()
-  console.log('advert to edit',editAdvert[0])
+
   const [addAdvert, setAdvertData] = useState({
     title: '',
     description: '',
@@ -49,7 +49,7 @@ const AddEditDelete = ({ editAdvert }) => {
   const handleEdit = async e => {
     e.preventDefault()
     try {
-      await axios.put(`api/adverts/${editAdvert[0].id}/`, addAdvert,{
+      await axios.put(`api/adverts/${editAdvert.id}/`, addAdvert,{
         headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
       })
       history.push('/profile')
@@ -59,14 +59,14 @@ const AddEditDelete = ({ editAdvert }) => {
   }
   console.log(addAdvert)
   return (
-    <>{ editAdvert  ?  <Grid centered>
+    <>{ editAdvert ?  <Grid centered>
       <GridColumn style={{ maxWidth: 550, marginTop: 100, borderRadius: '15px' }} color='black'>
         <Form onSubmit={handleEdit}>
           <Form.Field>
             <label>Title</label>
             <input
               required={true}
-              defaultValue={editAdvert[0].title}
+              defaultValue={editAdvert.title}
               name='title'
               type='text'
               onChange={handleChange}
@@ -77,7 +77,7 @@ const AddEditDelete = ({ editAdvert }) => {
             <label>Description</label>
             <input
               required={true}
-              defaultValue={editAdvert[0].description}
+              defaultValue={editAdvert.description}
               name='description'
               type='text'
               onChange={handleChange}
@@ -88,7 +88,7 @@ const AddEditDelete = ({ editAdvert }) => {
             <label>Quantity</label>
             <input
               placeholder='How many do you have to sell?'
-              defaultValue={editAdvert[0].quantity}
+              defaultValue={editAdvert.quantity}
               required={true}
               name='quantity'
               type='text'
@@ -100,7 +100,7 @@ const AddEditDelete = ({ editAdvert }) => {
             <input
               name='images'
               type='text'
-              defaultValue={editAdvert[0].images}
+              defaultValue={editAdvert.images}
               onChange={handleChange}
               placeholder='Images' />
             {errors.images && <label sub color='red'>{errors.images}</label>}
@@ -109,7 +109,7 @@ const AddEditDelete = ({ editAdvert }) => {
             <label>Price</label>
             <input
               required={true}
-              defaultValue={editAdvert[0].price}
+              defaultValue={editAdvert.price}
               name='price'
               type='text'
               onChange={handleChange}
@@ -120,7 +120,7 @@ const AddEditDelete = ({ editAdvert }) => {
             <label>Category</label>
             <input
               required={true}
-              defaultValue={editAdvert[0].category}
+              defaultValue={editAdvert.category}
               name='category'
               type='text'
               onChange={handleChange}

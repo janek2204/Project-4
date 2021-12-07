@@ -19,7 +19,7 @@ const SingleAdvert = ({ setBasketItems, basketItems }) => {
   })
 
   const onAdd = () => {
-    const newBasket = [ ...basketItems, advertData ]
+    const newBasket = [...basketItems, advertData]
     setBasketItems(newBasket)
   }
 
@@ -70,65 +70,64 @@ const SingleAdvert = ({ setBasketItems, basketItems }) => {
                 <GridColumn>
                   <Header as='h3'>Item description:</Header>
                   <Header as='h4'>{advertData.description}</Header>
-                  <Header as='h4'>For more information contact me at <a href={`mailto:${advertData.owner.email}?subject=${advertData.title}`}>{advertData.owner.email}</a></Header>
+                  {!userIsAuthenticated() ? '' : <Header as='h4'>For more information contact me at <a href={`mailto:${advertData.owner.email}?subject=${advertData.title}`}>{advertData.owner.email}</a></Header>}
                 </GridColumn>
               </Grid>
             </Segment>
           </GridColumn>
           <GridColumn>
             <CommentGroup>
-              <Segment>
-                {advertData.reviews.map(review => {
-                  return (
-                    <Comment key={review.id}>
-                      <Comment.Avatar as='a' src={review.owner.profile_image} />
-                      <Comment.Content>
-                        <Comment.Author as='h4'>{review.owner.username}</Comment.Author>
-                        <Comment.Metadata>
-                          <div>1 day ago</div>
-                        </Comment.Metadata>
-                        {userIsAuthenticated() && review.owner.id === ownerId.sub &&
-                          <Modal
-                            closeIcon
-                            open={open}
-                            trigger={<Button color='red' floated='right'>Delete comment</Button>}
-                            onClose={() => setOpen(false)}
-                            onOpen={() => setOpen(true)}
-                          >
-                            <Header icon='archive' content='Deleting comment' />
-                            <Modal.Content>
-                              <p>
-                                Are you sure you want to delete your comment?
-                              </p>
-                            </Modal.Content>
-                            <Modal.Actions>
-                              <Button color='red' onClick={() => setOpen(false)}>
-                                <Icon name='remove' /> No
-                              </Button>
-                              <Button color='green' value={review.id} onClick={deleteComment}>
-                                <Icon name='checkmark' /> Yes
-                              </Button>
-                            </Modal.Actions>
-                          </Modal>}
-                        <Comment.Text>
-                          <Header as='h5'>{review.review_text}</Header>
-                        </Comment.Text>
-                      </Comment.Content>
-                      <Divider />
-                    </Comment>
-                  )
-                })}
+              <Segment>{advertData.reviews.map(review => {
+                return (
+                  <Comment key={review.id}>
+                    <Comment.Avatar as='a' src={review.owner.profile_image} /><Comment.Content>
+                      <Comment.Author as='h4'>{review.owner.username}</Comment.Author>
+                      <Comment.Metadata>
+                        {review.created_at.slice(0, 10)}
+                      </Comment.Metadata>
+                      {userIsAuthenticated() && review.owner.id === ownerId.sub &&
+                        <Modal
+                          closeIcon
+                          open={open}
+                          trigger={<Button color='red' floated='right'>Delete comment</Button>}
+                          onClose={() => setOpen(false)}
+                          onOpen={() => setOpen(true)}
+                        >
+                          <Header icon='archive' content='Deleting comment' />
+                          <Modal.Content>
+                            <p>
+                              Are you sure you want to delete your comment?
+                            </p>
+                          </Modal.Content>
+                          <Modal.Actions>
+                            <Button color='red' onClick={() => setOpen(false)}>
+                              <Icon name='remove' /> No
+                            </Button>
+                            <Button color='green' value={review.id} onClick={deleteComment}>
+                              <Icon name='checkmark' /> Yes
+                            </Button>
+                          </Modal.Actions>
+                        </Modal>}
+                      <Comment.Text>
+                        <Header as='h5'>{review.review_text}</Header>
+                      </Comment.Text>
+                    </Comment.Content>
+                    <Divider />
+                  </Comment>
+                )
+              })
+              }
               </Segment>
             </CommentGroup>
             <Comment.Group>
-              <Form reply>
+              {!userIsAuthenticated() ? <Segment><Header textAlign='center'>To be able to add reviews you have to <a href='/login'>Login</a> or <a href='/register'> Register!</a></Header></Segment> : <Form reply>
                 <Form.TextArea onChange={handleChange} name='review_text' />
                 <ButtonGroup size='big' compact>
-                  <Button onClick={handleSubmit} content='Add review' labelPosition='right' icon='edit' primary />
+                  {<Button onClick={handleSubmit} content='Add review' labelPosition='right' icon='edit' primary />}
                   {advertData.owner.id === ownerId.sub ? <Link to='/edit'><Button icon='edit' labelPosition='right' color='orange' content='Edit' /></Link> : ''}
-                  {advertData.owner.id === ownerId.sub ? '' : <Button icon='plus' onClick={onAdd} labelPosition='right' positive content='Add to basket' />} 
+                  {advertData.owner.id === ownerId.sub ? '' : <Button icon='plus' onClick={onAdd} labelPosition='right' positive content='Add to basket' />}
                 </ButtonGroup>
-              </Form>
+              </Form>}
             </Comment.Group>
           </GridColumn>
 

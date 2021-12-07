@@ -59,7 +59,8 @@ const Adverts = () => {
                 id={advert.id}
                 price={advert.price}
                 title={advert.title}
-                images={advert.images} />
+                images={advert.images}
+                category={advert.category} />
             )
           })}</Container> :
         <Container>
@@ -70,7 +71,8 @@ const Adverts = () => {
                 id={advert.id}
                 price={advert.price}
                 title={advert.title}
-                images={advert.images} />
+                images={advert.images}
+                category={advert.category} />
             )
           })}</Container>
       }

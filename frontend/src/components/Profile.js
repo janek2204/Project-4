@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link , useHistory } from 'react-router-dom'
 import { Card, Header, Segment, Image, Grid, GridColumn, Button, Container, Divider, Modal, Icon, ButtonGroup } from 'semantic-ui-react'
 import { getPayLoad } from '../helpers/authentication'
 import { getTokenFromLocalStorage } from '../helpers/authentication'
@@ -29,10 +29,14 @@ const Profile = ({ setEditAdvert }) => {
     setRefresh(!refreshAfterDelete)
   }
 
-  const pushToEdit = () => {
-    setEditAdvert(userAdverts)
-    console.log(userAdverts)
+  const pushToEdit = (id) => {
+    const newAdvert = userAdverts.find((adevrt) => adevrt.id === id)
+    setEditAdvert(newAdvert)
     history.push('/edit')
+  }
+
+  const clearAdvertToEdit = () => {
+    setEditAdvert([])
   }
   return (
     <Container>
@@ -46,12 +50,13 @@ const Profile = ({ setEditAdvert }) => {
           />
         </GridColumn>
         <GridColumn textAlign='center'>
-          <Link to='/edit'><Button size='massive' fluid positive>Create new advert</Button></Link>
+          <Link to='/edit'><Button size='massive' onClick={clearAdvertToEdit} fluid positive>Create new advert</Button></Link>
           <Segment>
             <Header as='h1' textAlign='center'>Your adverts</Header>
           </Segment>
           <Card fluid>
             {userAdverts.map(advert => {
+              console.log(advert.id)
               return (<><Link to={`/adverts/${advert.id}`} key={advert.id}><Segment raised stacked compact basic>
                 <Image src={advert.images} />
                 <Header as='h3' textAlign='left'>{advert.title}</Header>
@@ -69,7 +74,7 @@ const Profile = ({ setEditAdvert }) => {
                     <Header icon='archive' content='Deleting comment' />
                     <Modal.Content>
                       <p>
-                        Are you sure you want to delete your advert?
+                          Are you sure you want to delete your advert?
                       </p>
                     </Modal.Content>
                     <Modal.Actions>
@@ -81,8 +86,8 @@ const Profile = ({ setEditAdvert }) => {
                       </Button>
                     </Modal.Actions>
                   </Modal>
-                  <Button.Or/>
-                  <Button color='blue' onClick={pushToEdit}>Edit</Button></ButtonGroup></Container>
+                  <Button.Or />
+                  <Button color='blue' onClick={() => pushToEdit(advert.id)}>Edit</Button></ButtonGroup></Container>
               <Divider hidden /></>)
             })}
           </Card>
