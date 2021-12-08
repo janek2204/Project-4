@@ -1,3 +1,4 @@
+import re
 from .models import Advert
 from rest_framework import status
 from rest_framework.views import APIView
@@ -11,13 +12,16 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 class AdvertListView(APIView):
   permission_classes = (IsAuthenticatedOrReadOnly,)
 
+
   def get(self,request):
     adverts = Advert.objects.all()
     serialized_adverts = PopulatedAdvertSerializer(adverts,many=True)
     return Response(serialized_adverts.data, status=status.HTTP_200_OK)
 
+
   def post(self,request):
-    request.data['owner'] = request.user.id
+
+    request.data['owner'] = request.user.id 
     advert = AdvertSerializer(data= request.data)
     if advert.is_valid():
       advert.save()

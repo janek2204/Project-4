@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { Form, Grid, GridColumn, Button } from 'semantic-ui-react'
 import axios from 'axios'
 import { getTokenFromLocalStorage } from '../helpers/authentication'
+import { ImageUpload } from './ImageUpload'
 
 const AddEditDelete = ({ editAdvert }) => {
 
@@ -12,8 +13,8 @@ const AddEditDelete = ({ editAdvert }) => {
     title: '',
     description: '',
     quantity: '',
-    images: '',
     price: '',
+    images: '',
     category: '',
   })
 
@@ -34,10 +35,11 @@ const AddEditDelete = ({ editAdvert }) => {
     setAdvertData(newAdvert)
   }
 
+
   const handleSubmit = async e => {
     e.preventDefault()
     try {
-      await axios.post('api/adverts/', addAdvert,{
+      await axios.post('api/adverts/', addAdvert, {
         headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
       })
       history.push('/profile')
@@ -49,17 +51,21 @@ const AddEditDelete = ({ editAdvert }) => {
   const handleEdit = async e => {
     e.preventDefault()
     try {
-      await axios.put(`api/adverts/${editAdvert.id}/`, addAdvert,{
-        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
+      await axios.put(`api/adverts/${editAdvert.id}/`, addAdvert, {
+        headers: { 'Authorization': `Bearer ${getTokenFromLocalStorage()}` },
       })
       history.push('/profile')
     } catch (err) {
       setErrors(err.response.data)
     }
   }
-  console.log(addAdvert)
+
+  const handleImageUrl = url => {
+    setAdvertData({ ...addAdvert, images: url })
+  }
+
   return (
-    <>{ editAdvert ?  <Grid centered>
+    <>{editAdvert.lenght ? <Grid centered>
       <GridColumn style={{ maxWidth: 550, marginTop: 100, borderRadius: '15px' }} color='black'>
         <Form onSubmit={handleEdit}>
           <Form.Field>
@@ -70,7 +76,7 @@ const AddEditDelete = ({ editAdvert }) => {
               name='title'
               type='text'
               onChange={handleChange}
-              placeholder='Yor advert title'/>
+              placeholder='Yor advert title' />
             {errors.title && <label sub color='red'>{errors.title}</label>}
           </Form.Field>
           <Form.Field>
@@ -99,8 +105,7 @@ const AddEditDelete = ({ editAdvert }) => {
             <label>Image</label>
             <input
               name='images'
-              type='text'
-              defaultValue={editAdvert.images}
+              type='file'
               onChange={handleChange}
               placeholder='Images' />
             {errors.images && <label sub color='red'>{errors.images}</label>}
@@ -130,7 +135,7 @@ const AddEditDelete = ({ editAdvert }) => {
           <Button type='submit' primary>Submit</Button>
         </Form>
       </GridColumn>
-    </Grid> :  <Grid centered>
+    </Grid> : <Grid centered>
       <GridColumn style={{ maxWidth: 550, marginTop: 100, borderRadius: '15px' }} color='black'>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
@@ -165,11 +170,10 @@ const AddEditDelete = ({ editAdvert }) => {
           </Form.Field>
           <Form.Field>
             <label>Image</label>
-            <input
+            <ImageUpload
+              value={addAdvert.images}
               name='images'
-              type='text'
-              onChange={handleChange}
-              placeholder='Images' />
+              handleImageUrl={handleImageUrl} />
             {errors.images && <label sub color='red'>{errors.images}</label>}
           </Form.Field>
           <Form.Field>

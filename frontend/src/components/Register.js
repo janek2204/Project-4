@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Form, Button, GridColumn, Grid } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
+import { ImageUploadRegister } from './ImageUploadRegister'
 
 const Register = () => {
 
@@ -42,6 +43,13 @@ const Register = () => {
       setErrors(err.response.data)
     }
   }
+
+
+  const handleImageUrl = url => {
+    setFormData({ ...formData, profile_image: url })
+  }
+
+
   return (
     <Grid centered>
       <GridColumn style={{ maxWidth: 550, marginTop: 50, borderRadius: '15px' }} color='black'>
@@ -88,11 +96,10 @@ const Register = () => {
           </Form.Field>
           <Form.Field>
             <label>Profile Image</label>
-            <input
+            <ImageUploadRegister
               name='profile_image'
-              type='text'
-              onChange={handleChange}
-              placeholder='Profile Image' />
+              value={formData.profile_image}
+              handleImageUrl={handleImageUrl} />
             {errors.profile_image && <label sub color='red'>{errors.profile_image}</label>}
           </Form.Field>
           <Form.Field>
