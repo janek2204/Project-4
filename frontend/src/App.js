@@ -26,7 +26,7 @@ const App = () => {
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/profile'> <Profile setEditAdvert={setEditAdvert}/> </Route>
-        <Route exact path='/basket'><Basket basketItems={basketItems} /></Route>
+        <Route exact path='/basket'><Basket basketItems={basketItems} setBasketItems={setBasketItems} /></Route>
         <Route exact path='/edit'> <AddEditDelete editAdvert={editAdvert}/></Route>
       </Switch>
     </BrowserRouter>

@@ -76,6 +76,9 @@ const SingleAdvert = ({ setBasketItems, basketItems }) => {
             </Segment>
           </GridColumn>
           <GridColumn>
+            <Segment textAlign='center'>
+              <Header as='h1'>Reviews</Header>
+            </Segment>
             <CommentGroup>
               <Segment>{advertData.reviews.map(review => {
                 return (

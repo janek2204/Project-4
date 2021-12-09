@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Form, Grid, GridColumn, Button } from 'semantic-ui-react'
+import { Form, Grid, GridColumn, Button, Dropdown } from 'semantic-ui-react'
 import axios from 'axios'
 import { getTokenFromLocalStorage } from '../helpers/authentication'
 import { ImageUpload } from './ImageUpload'
@@ -8,6 +8,7 @@ import { ImageUpload } from './ImageUpload'
 const AddEditDelete = ({ editAdvert }) => {
 
   const history = useHistory()
+  const editedAdvert = editAdvert.length
 
   const [addAdvert, setAdvertData] = useState({
     title: '',
@@ -17,8 +18,6 @@ const AddEditDelete = ({ editAdvert }) => {
     images: '',
     category: '',
   })
-
-
 
   const [errors, setErrors] = useState({
     title: '',
@@ -33,6 +32,9 @@ const AddEditDelete = ({ editAdvert }) => {
   const handleChange = e => {
     const newAdvert = { ...addAdvert, [e.target.name]: e.target.value }
     setAdvertData(newAdvert)
+  }
+  const handleDropdown = e => {
+    setAdvertData({ ...addAdvert, category: e.target.id })
   }
 
 
@@ -63,9 +65,10 @@ const AddEditDelete = ({ editAdvert }) => {
   const handleImageUrl = url => {
     setAdvertData({ ...addAdvert, images: url })
   }
+  console.log(editAdvert)
 
   return (
-    <>{editAdvert.lenght ? <Grid centered>
+    <>{editedAdvert > 0 ? <Grid centered>
       <GridColumn style={{ maxWidth: 550, marginTop: 100, borderRadius: '15px' }} color='black'>
         <Form onSubmit={handleEdit}>
           <Form.Field>
@@ -103,11 +106,10 @@ const AddEditDelete = ({ editAdvert }) => {
           </Form.Field>
           <Form.Field>
             <label>Image</label>
-            <input
+            <ImageUpload
+              value={addAdvert.images}
               name='images'
-              type='file'
-              onChange={handleChange}
-              placeholder='Images' />
+              handleImageUrl={handleImageUrl} />
             {errors.images && <label sub color='red'>{errors.images}</label>}
           </Form.Field>
           <Form.Field>
@@ -123,13 +125,22 @@ const AddEditDelete = ({ editAdvert }) => {
           </Form.Field>
           <Form.Field>
             <label>Category</label>
-            <input
-              required={true}
-              defaultValue={editAdvert.category}
-              name='category'
-              type='text'
-              onChange={handleChange}
-              placeholder='Category' />
+            <Dropdown
+              placeholder='Choose category'
+              fluid
+              search
+              selection
+              text={addAdvert.category}
+            >
+              <Dropdown.Menu >
+                <Dropdown.Header icon='tags' content='Choose advert category' />
+                <Dropdown.Item  onClick={handleDropdown} id='ELECTRONICS'>Electronics</Dropdown.Item>
+                <Dropdown.Item  onClick={handleDropdown} id='CARS'>Cars</Dropdown.Item>
+                <Dropdown.Item  onClick={handleDropdown} id='HOME'>Home</Dropdown.Item>
+                <Dropdown.Item  onClick={handleDropdown} id='GARDEN'>Garden</Dropdown.Item>
+                <Dropdown.Item  onClick={handleDropdown} id='OTHER'>Other</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
             {errors.category && <label sub color='red'>{errors.category}</label>}
           </Form.Field>
           <Button type='submit' primary>Submit</Button>
@@ -164,7 +175,7 @@ const AddEditDelete = ({ editAdvert }) => {
               placeholder='How many do you have to sell?'
               required={true}
               name='quantity'
-              type='text'
+              type='number'
               onChange={handleChange} />
             {errors.quantity && <label sub color='red'>{errors.quantity}</label>}
           </Form.Field>
@@ -188,12 +199,22 @@ const AddEditDelete = ({ editAdvert }) => {
           </Form.Field>
           <Form.Field>
             <label>Category</label>
-            <input
-              required={true}
-              name='category'
-              type='text'
-              onChange={handleChange}
-              placeholder='Category' />
+            <Dropdown
+              placeholder='Choose category'
+              fluid
+              search
+              selection
+              text={addAdvert.category}
+            >
+              <Dropdown.Menu >
+                <Dropdown.Header icon='tags' content='Choose advert category' />
+                <Dropdown.Item  onClick={handleDropdown} id='ELECTRONICS'>Electronics</Dropdown.Item>
+                <Dropdown.Item  onClick={handleDropdown} id='CARS'>Cars</Dropdown.Item>
+                <Dropdown.Item  onClick={handleDropdown} id='HOME'>Home</Dropdown.Item>
+                <Dropdown.Item  onClick={handleDropdown} id='GARDEN'>Garden</Dropdown.Item>
+                <Dropdown.Item  onClick={handleDropdown} id='OTHER'>Other</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
             {errors.category && <label sub color='red'>{errors.category}</label>}
           </Form.Field>
           <Button type='submit' primary>Submit</Button>

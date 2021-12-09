@@ -15,7 +15,7 @@ export const ImageUploadRegister = ({ handleImageUrl, value }) => {
   }
   return (
     <>
-      {value ?  <Image src={value} alt='Choosen image' fluid/> :
+      {value ?  <Image src={value} alt='Choosen image' size='tiny' fluid/> :
         <input
           name='profile_image'
           type='file'
