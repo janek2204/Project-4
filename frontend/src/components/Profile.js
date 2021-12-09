@@ -35,9 +35,6 @@ const Profile = ({ setEditAdvert }) => {
     history.push('/edit')
   }
 
-  const clearAdvertToEdit = () => {
-    setEditAdvert([])
-  }
   return (
     <Container>
       <Grid columns={2}>
@@ -50,7 +47,7 @@ const Profile = ({ setEditAdvert }) => {
           />
         </GridColumn>
         <GridColumn textAlign='center'>
-          <Link to='/edit'><Button size='massive' onClick={clearAdvertToEdit} fluid positive>Create new advert</Button></Link>
+          <Link to='/create'><Button size='massive' fluid positive>Create new advert</Button></Link>
           <Segment>
             <Header as='h1' textAlign='center'>Your adverts</Header>
           </Segment>

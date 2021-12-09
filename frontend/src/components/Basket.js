@@ -5,7 +5,7 @@ import { Header, Card, Container, Grid, GridColumn, Segment, Button } from 'sema
 const Basket = ({ basketItems,setBasketItems }) => {
 
   const getPrice = basketItems.map((item) => {
-    return parseInt(item.price)
+    return parseFloat(item.price)
   })
 
   const handlePay = () => {

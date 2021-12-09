@@ -3,7 +3,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom'
 import { Menu, MenuItem, Icon } from 'semantic-ui-react'
 import { userIsAuthenticated } from '../helpers/authentication'
 
-const Navbar = () => {
+const Navbar = ({ basketItems }) => {
   const history = useHistory()
   const location = useLocation()
 
@@ -12,18 +12,18 @@ const Navbar = () => {
 
   const handleLogout = () => {
     window.localStorage.removeItem('token')// remove token from local storage
-    history.push('/')
+    history.push('/adverts')
   }
 
   return (
     <Menu inverted >
       <MenuItem position='left' >
-        <Link to='/'><Icon name='home' size='big' /></Link>
+        <Link to='/adverts'><Icon name='home' size='big' /></Link>
       </MenuItem>
 
       {userIsAuthenticated() ? <>
         <MenuItem>
-          <Link to='/basket'><Icon name='shopping basket' size='big' /></Link>
+          {basketItems.length > 0 ? <Link to='/basket'><Icon name='shopping basket' color='red' size='big' /></Link> : <Link to='/basket'><Icon name='shopping basket' size='big' /></Link>}
         </MenuItem>
         <MenuItem>
           <Link to='/profile'><Icon name='user' size='big' /></Link>
