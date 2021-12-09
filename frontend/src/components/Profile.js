@@ -53,7 +53,6 @@ const Profile = ({ setEditAdvert }) => {
           </Segment>
           <Card fluid>
             {userAdverts.map(advert => {
-              console.log(advert.id)
               return (<><Link to={`/adverts/${advert.id}`} key={advert.id}><Segment raised stacked compact basic>
                 <Image src={advert.images} />
                 <Header as='h3' textAlign='left'>{advert.title}</Header>

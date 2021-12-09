@@ -129,7 +129,7 @@ const EditAdvert = ({ editAdvert }) => {
             </Dropdown>
             {errors.category && <label sub color='red'>{errors.category}</label>}
           </Form.Field>
-          <Button type='submit' primary>Submit</Button>
+          <Button type='submit' floated='right' color='blue' style={{ borderRadius: '15px' }}>Submit</Button>
         </Form>
       </GridColumn>
     </Grid> : <Header as='h1' textAlign='center'> Nothing to edit! </Header>}</>

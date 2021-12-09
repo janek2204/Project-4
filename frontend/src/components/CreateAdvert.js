@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Form, Grid, GridColumn, Button, Dropdown } from 'semantic-ui-react'
+import { Form, Grid, GridColumn, Button, Dropdown, Input } from 'semantic-ui-react'
 import axios from 'axios'
 import { getTokenFromLocalStorage } from '../helpers/authentication'
 import { ImageUpload } from './ImageUpload'
@@ -53,14 +53,16 @@ const Create = () => {
   const handleImageUrl = url => {
     setAdvertData({ ...addAdvert, images: url })
   }
-
+  console.log(addAdvert)
   return (
     <Grid centered>
       <GridColumn style={{ maxWidth: 550, marginTop: 100, borderRadius: '15px' }} color='black'>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
             <label>Title</label>
-            <input
+            <Input
+              label={{ icon: 'star', color: 'green' }}
+              labelPosition='right corner'
               required={true}
               name='title'
               type='text'
@@ -70,8 +72,11 @@ const Create = () => {
           </Form.Field>
           <Form.Field>
             <label>Description</label>
-            <input
+            <Input
+              label={{ icon: 'star', color: 'green' }}
+              labelPosition='right corner'
               required={true}
+              size='3000'
               name='description'
               type='text'
               onChange={handleChange}
@@ -80,7 +85,9 @@ const Create = () => {
           </Form.Field>
           <Form.Field>
             <label>Quantity</label>
-            <input
+            <Input
+              label={{ icon: 'star', color: 'green' }}
+              labelPosition='right corner'
               placeholder='How many do you have to sell?'
               required={true}
               name='quantity'
@@ -98,7 +105,9 @@ const Create = () => {
           </Form.Field>
           <Form.Field>
             <label>Price</label>
-            <input
+            <Input
+              label={{ icon: 'star', color: 'green' }}
+              labelPosition='right corner'
               required={true}
               name='price'
               type='text'
@@ -126,7 +135,7 @@ const Create = () => {
             </Dropdown>
             {errors.category && <label sub color='red'>{errors.category}</label>}
           </Form.Field>
-          <Button type='submit' primary>Submit</Button>
+          <Button type='submit' floated='right' color='blue' style={{ borderRadius: '15px' }}>Submit</Button>
         </Form>
       </GridColumn>
     </Grid>

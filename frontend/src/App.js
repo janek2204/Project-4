@@ -20,7 +20,7 @@ const App = () => {
     <BrowserRouter>
       <Navbar basketItems={basketItems}/>
       <Switch>
-        <Route exact path='/create'> <Create/></Route>
+        <Route exact path='/create' component={Create}/>
         <Route exact path='/adverts' component={Adverts} />
         <Route exact path='/adverts/:id'><SingleAdvert setBasketItems={setBasketItems} basketItems={basketItems}/></Route>
         <Route exact path='/register' component={Register} />
