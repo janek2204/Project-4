@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link, useHistory, useLocation } from 'react-router-dom'
-import { Menu, MenuItem, Icon } from 'semantic-ui-react'
+import { Menu, MenuItem, Icon, Header } from 'semantic-ui-react'
 import { userIsAuthenticated } from '../helpers/authentication'
 
 const Navbar = ({ basketItems }) => {
@@ -19,6 +19,9 @@ const Navbar = ({ basketItems }) => {
     <Menu inverted >
       <MenuItem position='left' >
         <Link to='/adverts'><Icon name='home' size='big' /></Link>
+      </MenuItem>
+      <MenuItem position='left'>
+        <Header className='navbar-title' style={{ color: 'white' }} textAlign='center'>E@syShopp</Header>
       </MenuItem>
 
       {userIsAuthenticated() ? <>

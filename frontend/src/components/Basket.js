@@ -1,6 +1,6 @@
 import React from 'react'
 import { Header, Card, Container, Grid, GridColumn, Segment, Button } from 'semantic-ui-react'
-
+import { toast, ToastContainer, Zoom } from 'react-toastify'
 
 const Basket = ({ basketItems,setBasketItems }) => {
 
@@ -10,6 +10,19 @@ const Basket = ({ basketItems,setBasketItems }) => {
 
   const handlePay = () => {
     setBasketItems([])
+    paidToast()
+  }
+
+  const paidToast = () => {
+    toast.info('Thank you for shopping with us, have greate day!', {
+      position: 'top-center',
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'dark',
+    })
   }
 
   return (
@@ -37,6 +50,17 @@ const Basket = ({ basketItems,setBasketItems }) => {
           </Segment>
         </GridColumn>
       </Grid>
+      <ToastContainer
+        position="top-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        transition={Zoom}
+        style={{ width: '50em' }}
+      />
     </Container>
   )
 }

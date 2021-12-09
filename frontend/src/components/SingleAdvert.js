@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Header, Image, Segment, Comment, Form, Button, Divider, Modal, Icon, CommentGroup, Grid, GridColumn, IconGroup, Container, ButtonGroup } from 'semantic-ui-react'
 import { getTokenFromLocalStorage, getPayLoad, userIsAuthenticated } from '../helpers/authentication'
+import { toast, ToastContainer, Flip } from 'react-toastify'
 
 
 const SingleAdvert = ({ setBasketItems, basketItems }) => {
@@ -18,9 +19,35 @@ const SingleAdvert = ({ setBasketItems, basketItems }) => {
     adverts: id,
   })
 
+  const addedItem = () => {
+    toast.info('Item has been added to your basket!', {
+      position: 'top-center',
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'dark',
+    })
+  }
+
+  const addingToast = (postTitle) => {
+    toast.success(`Thank you for reviewing ${postTitle}!`, {
+      position: 'top-center',
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'dark',
+    })
+  }
+
+
   const onAdd = () => {
     const newBasket = [...basketItems, advertData]
     setBasketItems(newBasket)
+    addedItem()
   }
 
   const handleChange = e => {
@@ -33,6 +60,7 @@ const SingleAdvert = ({ setBasketItems, basketItems }) => {
       headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
     })
     setNewComment(!newComment)
+    addingToast(advertData.title)
     document.querySelector('textarea').value = ''
   }
   const deleteComment = async e => {
@@ -58,7 +86,10 @@ const SingleAdvert = ({ setBasketItems, basketItems }) => {
       <Grid columns={2}>
         {advertData ? <>
           <GridColumn>
-            <Header as='h1' textAlign='center' style={{ color: 'white' }}><IconGroup><Icon name='hand point right outline' /></IconGroup>{advertData.title}</Header>
+            <Segment>
+              <Header as='h1' textAlign='center'><IconGroup><Icon name='hand point right outline' /></IconGroup>{advertData.title}</Header>
+            </Segment>
+
             <Image src={advertData.images} fluid />
             <Segment>
               <Grid columns={2}>
@@ -127,8 +158,8 @@ const SingleAdvert = ({ setBasketItems, basketItems }) => {
                 <Form.TextArea onChange={handleChange} name='review_text' />
                 <ButtonGroup size='big' compact>
                   {<Button onClick={handleSubmit} content='Add review' labelPosition='right' icon='edit' primary />}
-                  {advertData.owner.id === ownerId.sub ? <Link to='/edit'><Button icon='edit' labelPosition='right' color='orange' content='Edit' /></Link> : ''}
-                  {advertData.owner.id === ownerId.sub ? '' : <Button icon='plus' onClick={onAdd} labelPosition='right' positive content='Add to basket' />}
+                  {advertData.owner.id === ownerId.sub ? <Link to='/edit'><Button icon='edit' labelPosition='right' color='orange' floated='left' content='Edit' /></Link> : ''}
+                  {advertData.owner.id === ownerId.sub ? '' : <Button icon='plus' onClick={onAdd} labelPosition='right' positive floated='right' content='Add to basket' />}
                 </ButtonGroup>
               </Form>}
             </Comment.Group>
@@ -139,6 +170,16 @@ const SingleAdvert = ({ setBasketItems, basketItems }) => {
         }
 
       </Grid>
+      <ToastContainer
+        position="top-right"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        transition={Flip}
+      />
     </Container>
   )
 }

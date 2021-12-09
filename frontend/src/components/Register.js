@@ -4,6 +4,8 @@ import { Form, Button, GridColumn, Grid, Input, Segment, Container, Header } fro
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { ImageUploadRegister } from './ImageUploadRegister'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Register = () => {
 
@@ -35,6 +37,7 @@ const Register = () => {
   }
 
   const handleSubmit = async e => {
+    toastRegister()
     e.preventDefault()
     try {
       await axios.post('api/auth/register/', formData)
@@ -42,14 +45,29 @@ const Register = () => {
     } catch (err) {
       setErrors(err.response.data)
     }
-  }
 
+  }
 
   const handleImageUrl = url => {
     setFormData({ ...formData, profile_image: url })
   }
 
 
+  const toastRegister = () => {
+    toast.success('Thank you for registering!', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      color: 'blue',
+      theme: 'dark',
+    })
+  }
+
+  
   return (
     <>
       <Container textAlign='center'>
@@ -64,7 +82,7 @@ const Register = () => {
               <label>First Name</label>
               <Input
                 label={{ icon: 'star', color: 'green' }}
-                labelPosition='right corner' 
+                labelPosition='right corner'
                 required={true}
                 name='first_name'
                 type='text'
@@ -143,7 +161,16 @@ const Register = () => {
             <Button type='submit' color='blue' floated='right' style={{ borderRadius: '15px' }}>Submit</Button>
           </Form>
         </GridColumn>
-      </Grid></>
+      </Grid>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+      /></>
   )
 }
 

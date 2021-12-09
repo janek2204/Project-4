@@ -1,10 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap');
+
 .ui.form .field>label{
 color: white !important; 
 }
 
-#root, body{
+#root, body, html{
   background-color: #a9b8c9 !important;
+  font-family: 'Satisfy', cursive !important;
 }
+.ui{
+  font-family: 'Nanum Gothic', sans-serif !important;}
 
 .ui.button.floating.labeled.dropdown.icon{
   background-color:#1b1c1d;
@@ -15,8 +21,21 @@ color: white !important;
 .ui.left.aligned.header {
   margin: 0px;
 }
-
+.ui.inverted.menu .left.item:before{
+  background: none;
+  content: 0;
+}
 .author, .metadata{
   margin: 0px;
   margin-left: 0px !important; 
+}
+:root{
+--toastify-toast-min-height: 80px !important;
+--toastify-toast-max-height: 800px !important;
+}
+
+.navbar-title{
+  font-family: 'Luckiest Guy', cursive !important;
+  font-size: 2em !important;
+  text-align: center;
 }

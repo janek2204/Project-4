@@ -4,6 +4,8 @@ import { Link , useHistory } from 'react-router-dom'
 import { Card, Header, Segment, Image, Grid, GridColumn, Button, Container, Divider, Modal, Icon, ButtonGroup } from 'semantic-ui-react'
 import { getPayLoad } from '../helpers/authentication'
 import { getTokenFromLocalStorage } from '../helpers/authentication'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Profile = ({ setEditAdvert }) => {
   const [userData, setUserData] = useState([])
@@ -13,13 +15,28 @@ const Profile = ({ setEditAdvert }) => {
   const [open, setOpen] = useState(false)
   const history = useHistory()
 
+  const showMeToast = (name) => {
+    toast.info(`Welcome back ${name}!`, {
+      position: 'top-center',
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'dark',
+    })
+  }
+
+
   useEffect(() => {
     const getData = async () => {
       const { data } = await axios.get(`api/auth/profile/${getUserId.sub}`)
       setUserData(data)
       setUserAdverts(data.owner)
+      showMeToast(data.first_name)
     }
     getData()
+    
   }, [getUserId.sub, refreshAfterDelete])
 
   const deleteAdvert = async (id) => {
@@ -89,6 +106,15 @@ const Profile = ({ setEditAdvert }) => {
           </Card>
         </GridColumn>
       </Grid>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+      />
     </Container>
   )
 }

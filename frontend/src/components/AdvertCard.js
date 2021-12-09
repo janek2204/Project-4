@@ -16,13 +16,13 @@ const AdvertCard = ({ title, price, images, id, category }) => {
   }, [id])
   console.log(advertData)
   return (
-    <Card fluid onClick={() => history.push(`/adverts/${id}`)}>
+    <Card  fluid onClick={() => history.push(`/adverts/${id}`)}>
       <Header as='h1' textAlign='left' > {title}</Header >
       <Header as='h5' textAlign='left'>Category: {category}</Header>
       <Segment vertical>
         <Header as='h3' textAlign='right'>Price: {price} £</Header>
       </Segment>
-      <Image src={images} />
+      <Image src={images}  />
     </Card>
   )
 }
