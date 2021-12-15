@@ -137,7 +137,7 @@ AUTH_USER_MODEL = 'jwt_auth.User'
 
 ROOT_URLCONF = 'final_project.urls'
 
-STATIC_ROOT = os.path.join(BASE_DIR, '/frontend/build/static/')
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'frontend', "build", "static"),
