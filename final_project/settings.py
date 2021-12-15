@@ -59,7 +59,7 @@ ROOT_URLCONF = 'final_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'frontend')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,6 +137,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'post_images')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'jwt_auth.User'
+
+ROOT_URLCONF = 'final_project.urls'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'frontend', "build", "static"),
+)
 
 REST_FRAMEWORK ={ # 1:45:00 in  Charlotts video
   'DEFAULT_RENDERER_CLASSES': [
