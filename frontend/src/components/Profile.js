@@ -30,7 +30,7 @@ const Profile = ({ setEditAdvert }) => {
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios.get(`api/auth/profile/${getUserId.sub}/`)
+      const { data } = await axios.get(`api/auth/profile/${getUserId.sub}`)
       setUserData(data)
       setUserAdverts(data.owner)
       showMeToast(data.first_name)
@@ -40,7 +40,7 @@ const Profile = ({ setEditAdvert }) => {
   }, [getUserId.sub, refreshAfterDelete])
 
   const deleteAdvert = async (id) => {
-    await axios.delete(`api/adverts/${id}/`, {
+    await axios.delete(`api/adverts/${id}`, {
       headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
     }),
     setRefresh(!refreshAfterDelete)
