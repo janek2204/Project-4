@@ -140,7 +140,7 @@ ROOT_URLCONF = 'final_project.urls'
 STATIC_ROOT = os.path.join(BASE_DIR, '/frontend/build/static/')
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'frontend/build/static/'),
+    os.path.join(BASE_DIR, 'frontend', "build", "static"),
 )
 
 REST_FRAMEWORK ={ # 1:45:00 in  Charlotts video
