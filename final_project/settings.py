@@ -60,6 +60,7 @@ ROOT_URLCONF = 'final_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,7 +140,7 @@ ROOT_URLCONF = 'final_project.urls'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 STATICFILES_DIRS = (
-    os.path.join("static"),
+    os.path.join(BASE_DIR,'build/static'),
 )
 
 REST_FRAMEWORK ={ # 1:45:00 in  Charlotts video
