@@ -60,7 +60,7 @@ ROOT_URLCONF = 'final_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'build')],
+        'DIRS': [r'/Users/piotr/development/Project-4/build'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
