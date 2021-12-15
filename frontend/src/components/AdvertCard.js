@@ -9,7 +9,7 @@ const AdvertCard = ({ title, price, images, id, category }) => {
   const history = useHistory()
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios.get(`/api/adverts/${id}`)
+      const { data } = await axios.get(`/api/adverts/${id}/`)
       setAdvertData(data)
     }
     getData()
