@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-import django_on_heroku
+# import django_on_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-0-v=agcb7)qbkq1*k(gwcue5bypc@dm5blclo!jn$@#$rqp0)2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -60,7 +60,7 @@ ROOT_URLCONF = 'final_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [r'/Users/piotr/development/Project-4/build'],
+        'DIRS': [os.path.join(BASE_DIR, 'final_project')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,10 +137,9 @@ AUTH_USER_MODEL = 'jwt_auth.User'
 
 ROOT_URLCONF = 'final_project.urls'
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR,'build/static'),
+    os.path.join(BASE_DIR, 'final_project', "build", "static"),
 )
 
 REST_FRAMEWORK ={ # 1:45:00 in  Charlotts video
@@ -153,4 +152,4 @@ REST_FRAMEWORK ={ # 1:45:00 in  Charlotts video
   
   ],
 }
-django_on_heroku.settings(locals())
+# django_on_heroku.settings(locals())
