@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import django_on_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -140,6 +141,8 @@ AUTH_USER_MODEL = 'jwt_auth.User'
 
 ROOT_URLCONF = 'final_project.urls'
 
+STATIC_ROOT = '/frontend/build/static'
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'frontend', "build", "static"),
 )
@@ -154,3 +157,4 @@ REST_FRAMEWORK ={ # 1:45:00 in  Charlotts video
   
   ],
 }
+django_on_heroku.settings(locals())
