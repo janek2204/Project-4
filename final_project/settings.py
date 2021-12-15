@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-0-v=agcb7)qbkq1*k(gwcue5bypc@dm5blclo!jn$@#$rqp0)2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://easyshopp.herokuapp.com/']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -60,7 +60,7 @@ ROOT_URLCONF = 'final_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'build')],
+        'DIRS': [os.path.join('build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
