@@ -128,8 +128,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'post_images')
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -142,7 +140,7 @@ ROOT_URLCONF = 'final_project.urls'
 STATIC_ROOT = os.path.join(BASE_DIR, '/frontend/build/static/')
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'frontend', "build", "static"),
+    os.path.join(BASE_DIR, 'frontend/build/static/'),
 )
 
 REST_FRAMEWORK ={ # 1:45:00 in  Charlotts video
