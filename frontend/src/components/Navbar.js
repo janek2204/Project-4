@@ -12,13 +12,13 @@ const Navbar = ({ basketItems }) => {
 
   const handleLogout = () => {
     window.localStorage.removeItem('token')// remove token from local storage
-    history.push('/adverts')
+    history.push('/')
   }
 
   return (
     <Menu inverted >
       <MenuItem position='left' >
-        <Link to='/adverts'><Icon name='home' size='big' /></Link>
+        <Link to='/'><Icon name='home' size='big' /></Link>
       </MenuItem>
       <MenuItem position='left'>
         <Header className='navbar-title' style={{ color: 'white' }} textAlign='center'>E@syShopp</Header>

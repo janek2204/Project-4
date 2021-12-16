@@ -40,7 +40,7 @@ const Profile = ({ setEditAdvert }) => {
   }, [getUserId.sub, refreshAfterDelete])
 
   const deleteAdvert = async (id) => {
-    await axios.delete(`api/adverts/${id}`, {
+    await axios.delete(`api/adverts/${id}/`, {
       headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
     }),
     setRefresh(!refreshAfterDelete)
@@ -70,7 +70,7 @@ const Profile = ({ setEditAdvert }) => {
           </Segment>
           <Card fluid>
             {userAdverts.map(advert => {
-              return (<><Link to={`/adverts/${advert.id}`} key={advert.id}><Segment raised stacked compact basic>
+              return (<><Link to={`/adverts/${advert.id}/`} key={advert.id}><Segment raised stacked compact basic>
                 <Image src={advert.images} />
                 <Header as='h3' textAlign='left'>{advert.title}</Header>
                 <Header as='h4' textAlign='left'>Price:<br />{advert.price}£</Header>
