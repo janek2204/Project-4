@@ -75,7 +75,7 @@ const SingleAdvert = ({ setBasketItems, basketItems }) => {
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios.get(`/api/adverts/${id}`)
+      const { data } = await axios.get(`/api/adverts/${id}/`)
       setAdvertData(data)
     }
     getData()

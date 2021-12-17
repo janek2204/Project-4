@@ -27,10 +27,13 @@ const Profile = ({ setEditAdvert }) => {
     })
   }
 
+  console.log('userAdverts ---->',userAdverts)
+  console.log('userData ---->',userData)
+
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios.get(`api/auth/profile/${getUserId.sub}`)
+      const { data } = await axios.get(`api/auth/profile/${getUserId.sub}/`)
       setUserData(data)
       setUserAdverts(data.owner)
       showMeToast(data.first_name)
@@ -40,7 +43,7 @@ const Profile = ({ setEditAdvert }) => {
   }, [getUserId.sub, refreshAfterDelete])
 
   const deleteAdvert = async (id) => {
-    await axios.delete(`api/adverts/${id}`, {
+    await axios.delete(`api/adverts/${id}/`, {
       headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
     }),
     setRefresh(!refreshAfterDelete)
@@ -69,8 +72,8 @@ const Profile = ({ setEditAdvert }) => {
             <Header as='h1' textAlign='center'>Your adverts</Header>
           </Segment>
           <Card fluid>
-            {userAdverts.map(advert => {
-              return (<><Link to={`/adverts/${advert.id}`} key={advert.id}><Segment raised stacked compact basic>
+            {userAdverts && userAdverts.map(advert => {
+              return (<><Link to={`/adverts/${advert.id}/`} key={advert.id}><Segment raised stacked compact basic>
                 <Image src={advert.images} />
                 <Header as='h3' textAlign='left'>{advert.title}</Header>
                 <Header as='h4' textAlign='left'>Price:<br />{advert.price}£</Header>
