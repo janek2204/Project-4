@@ -43,7 +43,7 @@ const EditAdvert = ({ editAdvert }) => {
       await axios.put(`api/adverts/${editAdvert.id}/`, addAdvert, {
         headers: { 'Authorization': `Bearer ${getTokenFromLocalStorage()}` },
       })
-      history.push('/profile/')
+      history.push('/profile')
     } catch (err) {
       setErrors(err.response.data)
     }

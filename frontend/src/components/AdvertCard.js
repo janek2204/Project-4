@@ -9,14 +9,14 @@ const AdvertCard = ({ title, price, images, id, category }) => {
   const history = useHistory()
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios.get(`/api/adverts/${id}/`)
+      const { data } = await axios.get(`/api/adverts/${id}`)
       setAdvertData(data)
     }
     getData()
   }, [id])
   console.log(advertData)
   return (
-    <Card  fluid onClick={() => history.push(`/adverts/${id}/`)}>
+    <Card  fluid onClick={() => history.push(`/adverts/${id}`)}>
       <Header as='h1' textAlign='left' > {title}</Header >
       <Header as='h5' textAlign='left'>Category: {category}</Header>
       <Segment vertical>
