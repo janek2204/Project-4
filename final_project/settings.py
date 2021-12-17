@@ -141,9 +141,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'jwt_auth.User'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'frontend', "build", "static"),
+    os.path.join(BASE_DIR, 'frontend', 'build', 'static'),
 )
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
 
 REST_FRAMEWORK ={ # 1:45:00 in  Charlotts video
   'DEFAULT_RENDERER_CLASSES': [
