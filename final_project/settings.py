@@ -132,7 +132,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'post_images')
 ROOT_URLCONF = 'final_project.urls'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'frontend', 'build', 'static'),
+    os.path.join(BASE_DIR, 'frontend', 'build',),
 )
 
 STATIC_ROOT = (os.path.join(BASE_DIR, 'staticfiles'),)
