@@ -43,7 +43,7 @@ const Create = () => {
       await axios.post('api/adverts/', addAdvert, {
         headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
       })
-      history.push('/profile')
+      history.push('/profile/')
     } catch (err) {
       setErrors(err.response.data)
     }
