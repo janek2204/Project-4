@@ -27,8 +27,8 @@ const Profile = ({ setEditAdvert }) => {
     })
   }
 
-  console.log('userAdverts ---->',userAdverts)
-  console.log('userData ---->',userData)
+  // console.log('userAdverts ---->',userAdverts)
+  // console.log('userData ---->',userData)
 
 
   useEffect(() => {
