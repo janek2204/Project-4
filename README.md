@@ -1,7 +1,7 @@
 # General Assembly  Project Four, Full-stack Django, PostgreSQL, React application-E@syShopp
 
 ##  Overview
-Project Four requires to use of Django with PostgreSQL as a backend server and React node for the frontend. I decide to do this project solo. After quick thought about what I would like to build, I decided to try my strength with something I haven’t tried before and I go with the e-commerce website. 
+Project Four requires to use of Django with PostgreSQL as a backend server and React.js for the frontend. I decide to do this project solo. After quick thought about what I would like to build, I decided to try my strength with something I haven’t tried before and I go with the e-commerce website. 
 
 ## Time to build
 ### 9 days
