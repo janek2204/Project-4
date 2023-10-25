@@ -10,7 +10,7 @@ Project Four requires the use of Django with PostgreSQL as a backend server and 
 
 ---
 
-### Visit E@asyShopp **[here](https://easyshopp.herokuapp.com/)**!
+### Visit E@asyShopp **[here](https://easyshopp-2692167865b4.herokuapp.com/)**!
 
 ---
 
